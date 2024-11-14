@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neontek Blog Editor</title>
+    <link rel="stylesheet" href="./assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link rel="stylesheet" href="./assets/css/fontawesome.css" />
+    <link rel="stylesheet" href="./assets/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="./assets/css/all.min.css" />
+  </head>
+  <body>
+    <nav
+      class="navbar justify-content-between navbar-expand-lg bg-body-tertiary sticky-top"
+    >
+      <div class="container">
+        <a
+          class="navbar-brand"
+          target="_blank"
+          href="https://www.neontek.co.ke"
+        >
+          <img
+            class="image_brand"
+            src="./assets/images/logo.png"
+            alt="Neontek brand logo"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Downloads</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Tech Hub</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Learning</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search Projects"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN BODY -->
+
+    <div class="row container_body">
+      <div class="col-md-2 side">
+        <aside class="sidebar bg-body-secondary">
+          <ul class="sidebar_list list-unstyled">
+            <li class="sidebar_item">
+              <a
+                href="#"
+                data-section="home"
+                class="sidebar_link link text-decoration-none"
+                >Home</a
+              >
+            </li>
+
+            <li class="sidebar_item">
+              <a
+                href="#"
+                data-section="posts"
+                class="sidebar_link link text-decoration-none"
+                >Posts</a
+              >
+            </li>
+
+            <li class="sidebar_item">
+              <a
+                href="#"
+                data-section="media"
+                class="sidebar_link link text-decoration-none"
+                >Media</a
+              >
+            </li>
+
+            <li class="sidebar_item">
+              <a
+                href="#"
+                data-section="pages"
+                class="sidebar_link link text-decoration-none"
+                >Pages</a
+              >
+            </li>
+
+            <li class="sidebar_item">
+              <a
+                href="#"
+                data-section="users"
+                class="sidebar_link link text-decoration-none"
+                >Users</a
+              >
+            </li>
+
+            <li class="sidebar_item">
+              <a
+                href="#"
+                data-section="settings"
+                class="sidebar_link link text-decoration-none"
+                >Settings</a
+              >
+            </li>
+          </ul>
+        </aside>
+      </div>
+      <div class="col-md-10">
+        <!-- HOME -->
+        <section class="section active_sect home" id="home">
+          <div class="content_grp row bg-body-secondary">
+            <div class="col-md-4">
+              <div class="sect_header">
+                <h4>Welcome to Blog Editor</h4>
+                <p>We've assembled some links to get you started.</p>
+              </div>
+
+              <div class="get-started">
+                <h3>Get Started</h3>
+                <button class="btn btn-warning">Customise your Site</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <h4>Next Steps</h4>
+              <ul class="list-unstyled">
+                <li><a href="Link 1">Write a blog post</a></li>
+                <li><a href="Link 2">Create an about page</a></li>
+                <li><a href="Link 3">View your site</a></li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h4>More Actions</h4>
+              <ul class="list-unstyled">
+                <li><a href="Link 1">Manage widgets and menus</a></li>
+                <li><a href="Link 2">Turn comments on or off</a></li>
+                <li><a href="Link 3">Learn more about getting started</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="content_grp bg-body-secondary">
+                  <h4>At a Glance</h4>
+                  <p>Posts: <span>{{1 + 1}}</span></p>
+                  <p>Comments: <span>{{2 + 2}}</span></p>
+                  <p>Pages: <span>{{7}}</span></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="content_grp bg-body-secondary">
+                  <h4>At a Glance</h4>
+                  <p>Posts: <span>{{1 + 1}}</span></p>
+                  <p>Comments: <span>{{2 + 2}}</span></p>
+                  <p>Pages: <span>{{7}}</span></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="content_grp bg-body-secondary">
+                <h4>Recents</h4>
+                <div class="recents_list" id="recents">
+                  <p>C:///users/username/documents/project1.csproj</p>
+                  <p>C:///users/username/documents/project1.csproj</p>
+                  <p>C:///users/username/documents/project1.csproj</p>
+                  <p>C:///users/username/documents/project1.csproj</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Posts -->
+        <section class="section posts" id="posts">
+          <div class="content_grp">
+            <h2>Posts</h2>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="inp_group">
+                <label for="posts-filter">Filter Posts</label>
+                <select name="posts" id="posts-filter">
+                  <option value="tech">Tech</option>
+                  <option value="ai">AI</option>
+                  <option value="agriculture">Agriculture</option>
+                  <option value="health">Health</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <div class="inp_group">
+                <button class="btn btn-primary" id="btnNewPost">
+                  Add New Post
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- LIST OF POSTS -->
+          <div class="row">
+            <div class="posts_list" id="post_list">
+              <article class="post col-md-4" id="post">
+                <div class="post_image_holder">
+                  <img src="./assets/images/img-holder.jpg" alt="" />
+                </div>
+                <div class="post_summery">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Delectus exercitationem ullam vitae ipsam eos fugiat vel
+                    magni non aperiam perspiciatis!
+                  </p>
+                </div>
+                <div class="post_meta">
+                  <div class="icon_box">
+                    <i class="fa-solid fa-comment"></i>
+                  </div>
+
+                  <div class="icon_box">
+                    <i class="fa-solid fa-cog"></i>
+                  </div>
+
+                  <div class="icon_box">
+                    <i class="fa-solid fa-eye"></i>
+                  </div>
+
+                  <div class="icon_box">
+                    <i class="fa-solid fa-info"></i>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+        <!-- Media -->
+        <section class="section media" id="media">
+          <h2>Media</h2>
+        </section>
+        <!-- Pages -->
+        <section class="section pages" id="pages">
+          <h2>Pages</h2>
+        </section>
+        <!-- Users -->
+        <section class="section users" id="users">
+          <h2>Users</h2>
+        </section>
+        <!-- Settings -->
+        <section class="section settings" id="settings">
+          <h2>Settings</h2>
+        </section>
+
+        <!--  -->
+      </div>
+    </div>
+
+    <script src="./assets/js/bootstrap.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/all.js"></script>
+    <script src="./assets/js/all.min.js"></script>
+    <script src="./assets/js/fontawesome.js"></script>
+    <script src="./assets/js/fontawesome.min.js"></script>
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>
