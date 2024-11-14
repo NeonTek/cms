@@ -200,7 +200,7 @@
             <h2>Posts</h2>
           </div>
 
-          <div class="row">
+          <div class="row mb-4">
             <div class="col-md-4">
               <div class="inp_group">
                 <label for="posts-filter">Filter Posts</label>
@@ -225,16 +225,16 @@
           <!-- LIST OF POSTS -->
           <div class="row">
             <div class="posts_list" id="post_list">
-              <article class="post col-md-4" id="post">
+              <article class="post col-md-4" id="post" style="display: none">
                 <div class="post_image_holder">
-                  <img src="./assets/images/img-holder.jpg" alt="" />
+                  <img
+                    id="post-image"
+                    src="./assets/images/img-holder.jpg"
+                    alt=""
+                  />
                 </div>
                 <div class="post_summery">
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Delectus exercitationem ullam vitae ipsam eos fugiat vel
-                    magni non aperiam perspiciatis!
-                  </p>
+                  <p id="post-summery"></p>
                 </div>
                 <div class="post_meta">
                   <div class="icon_box">
@@ -278,12 +278,16 @@
       </div>
     </div>
 
+    <!-- BOOTSTRAP JS -->
     <script src="./assets/js/bootstrap.js"></script>
     <script src="./assets/js/bootstrap.min.js"></script>
+    <!-- FONTAWESOME JS -->
     <script src="./assets/js/all.js"></script>
     <script src="./assets/js/all.min.js"></script>
     <script src="./assets/js/fontawesome.js"></script>
     <script src="./assets/js/fontawesome.min.js"></script>
+    <!-- CUSTOM JS -->
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/posts.js"></script>
   </body>
 </html>

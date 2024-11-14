@@ -1,0 +1,27 @@
+{
+  "posts": [
+    {
+      "image": "./assets/images/img-holder.jpg",
+      "description": "1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus exercitationem ullam vitae ipsam eos fugiat vel magni non aperiam perspiciatis!",
+      "link": ""
+    },
+
+    {
+      "image": "./assets/images/img-holder.jpg",
+      "description": "2 Lorem ipsum dolor sit amet consectetur adipisicing elit.Delectus exercitationem ullam vitae ipsam eos fugiat velmagni non aperiam perspiciatis!",
+      "link": ""
+    },
+
+    {
+      "image": "./assets/images/img-holder.jpg",
+      "description": "3 Lorem ipsum dolor sit amet consectetur adipisicing elit.Delectus exercitationem ullam vitae ipsam eos fugiat velmagni non aperiam perspiciatis!",
+      "link": ""
+    },
+
+    {
+      "image": "./assets/images/img-holder.jpg",
+      "description": "4 Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus exercitationem ullam vitae ipsam eos fugiat vel magni non aperiam perspiciatis!",
+      "link": ""
+    }
+  ]
+}
