@@ -259,7 +259,41 @@
         </section>
         <!-- Media -->
         <section class="section media" id="media">
-          <h2>Media</h2>
+          <div class="content_grp">
+            <h2>Media Library</h2>
+          </div>
+
+          <div class="row">
+            <form
+              action="#"
+              class="upload_form bg-body-secondary"
+              onsubmit="return false"
+            >
+              <div class="drop_zone" id="dropZone">
+                <p>Drop files here, or click to upload</p>
+                <input
+                  type="file"
+                  class="file_input"
+                  name="fileInput"
+                  id="fileInput"
+                  hidden
+                />
+              </div>
+            </form>
+          </div>
+
+          <div class="row">
+            <div class="media_list" id="mediaImageContainer">
+              <div class="img_cont" id="imgCont" style="display: none">
+                <img class="media" id="mediaImage" src="{{}}" alt="" />
+                <div class="data">
+                  <h4 class="image_title" id="imageTitle">Image Title Here</h4>
+                  <i title="Delete from Database" class="fa-solid fa-trash"></i>
+                  <i title="Add asset to project" class="fa-solid fa-add"></i>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
         <!-- Pages -->
         <section class="section pages" id="pages">
@@ -278,6 +312,33 @@
       </div>
     </div>
 
+    <div class="swipe-area"></div>
+
+    <!-- FIREBASE JS -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyBK0EVcw4B5dVKVCseleq9EQA3unokU7Us",
+        authDomain: "neontek-cms.firebaseapp.com",
+        projectId: "neontek-cms",
+        storageBucket: "neontek-cms.firebasestorage.app",
+        messagingSenderId: "901190705482",
+        appId: "1:901190705482:web:9ca56d50f9e4ee094c61b3",
+        measurementId: "G-6LHZHCPLMS",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+
     <!-- BOOTSTRAP JS -->
     <script src="./assets/js/bootstrap.js"></script>
     <script src="./assets/js/bootstrap.min.js"></script>
@@ -287,7 +348,15 @@
     <script src="./assets/js/fontawesome.js"></script>
     <script src="./assets/js/fontawesome.min.js"></script>
     <!-- CUSTOM JS -->
+    <script>
+      document
+        .querySelector(".navbar-toggler")
+        .addEventListener("click", () => {
+          document.querySelector(".sidebar").classList.toggle("active");
+        });
+    </script>
     <script src="./assets/js/app.js"></script>
     <script src="./assets/js/posts.js"></script>
+    <script src="./assets/js/mediaHandler.js"></script>
   </body>
 </html>
