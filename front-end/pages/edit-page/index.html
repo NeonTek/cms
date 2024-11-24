@@ -27,14 +27,9 @@
           Preview Markup
         </button>
 
-        <a
-          name=""
-          id="btnSave"
-          class="btn btn-outline-primary"
-          href="#"
-          role="button"
-          >Save</a
-        >
+        <a id="btnSave" class="btn btn-outline-primary" href="#" role="button">
+          Save
+        </a>
 
         <button type="button" id="btnCommit" class="btn btn-outline-primary">
           Commit Changes
@@ -47,7 +42,6 @@
       <div class="content_grp sticky-top" style="box-shadow: none">
         <h3 class="text-align-center">Generated Markup</h3>
       </div>
-
       <div id="markupOutput"></div>
     </div>
 
@@ -70,7 +64,7 @@
         type="text"
         name="path"
         id="inputPath"
-        placeholder="Filepath eg https://api.github..."
+        placeholder="Filepath e.g., https://api.github..."
       />
       <input
         type="text"
@@ -90,6 +84,7 @@
     </div>
 
     <script type="module">
+      // Initialize Quill editor
       const quill = new Quill("#editor", {
         modules: {
           toolbar: [
@@ -99,23 +94,15 @@
             ["bold", "italic", "underline", "strike"],
             ["blockquote"],
             [{ list: "ordered" }, { list: "bullet" }],
-            // TEXT ALIGNMENT
             [
               { align: "" },
               { align: "center" },
               { align: "right" },
               { align: "justify" },
             ],
-
-            // COLORS
             [{ color: [] }, { background: [] }],
-
-            // INDENTATIONS
             [{ indent: "-1" }, { indent: "+1" }],
-
-            // LINKS AND MEDIA
             ["link", "image", "video", "code-block"],
-            // CLEAR FOMMATING
             ["clean"],
           ],
         },
@@ -124,103 +111,104 @@
       });
 
       const markupPreview = document.getElementById("markupOutput");
-      const saveButton = document.getElementById("btnSave");
       const previewButton = document.getElementById("btnPreviewHTML");
-
-      previewButton.addEventListener("click", () => {
-        const htmlContent = quill.root.innerHTML;
-        markupPreview.innerHTML = htmlContent;
-      });
-
-      // DATA MODAL
       const dataModal = document.querySelector(".data_modal");
       const usernameInp = document.getElementById("inputUsername");
       const repoInp = document.getElementById("inputRepoName");
       const pathInp = document.getElementById("inputPath");
       const tokenInp = document.getElementById("inputPAT");
-      let message = document.getElementById("message").innerHTML;
+      const closeModalButton = document.getElementById("modalCloseBtn");
+      const commitModalButton = document.getElementById("btnCommit");
+      const commitActionButton = document.getElementById("btnCommit2");
 
-      // Token: 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
+      let message = "";
 
-      // HANDLER FOR COMMIT BUTTON CLICK
+      // Preview HTML
+      previewButton.addEventListener("click", () => {
+        const htmlContent = quill.root.innerHTML;
+        markupPreview.innerHTML = htmlContent;
+      });
 
-      document
-        .getElementById("modalCloseBtn")
-        .addEventListener("click", () => (dataModal.style.display = "none"));
+      // Show/Hide Modal
+      closeModalButton.addEventListener("click", () => {
+        dataModal.style.display = "none";
+      });
 
-      document.getElementById("btnCommit").addEventListener("click", () => {
+      commitModalButton.addEventListener("click", () => {
         dataModal.style.display = "flex";
       });
 
-      document
-        .getElementById("btnCommit2")
-        .addEventListener("click", async () => {
-          // GITHUB API CONSTANTS
-          const GITHUB_USERNAME = usernameInp.value;
-          const REPO_NAME = repoInp.value;
-          const FILE_PATH = pathInp.value;
-          const TOKEN = tokenInp.value;
+      // Handle Commit Action
+      commitActionButton.addEventListener("click", async () => {
+        const GITHUB_USERNAME = usernameInp.value.trim();
+        const REPO_NAME = repoInp.value.trim();
+        const FILE_PATH = pathInp.value.trim();
+        const TOKEN = tokenInp.value.trim();
 
-          const htmlContent = quill.root.innerHTML;
-          let pageTitle = "New Page";
-          const template = `
+        if (!GITHUB_USERNAME || !REPO_NAME || !FILE_PATH || !TOKEN) {
+          alert("All fields must be filled!");
+          return;
+        }
+
+        const htmlContent = quill.root.innerHTML;
+        const pageTitle = "New Page";
+        const template = `
           <!DOCTYPE html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                  <title>${pageTitle}</title>
-                </head>
-                <body>${htmlContent}</body>
-                <footer><p>&copy; 2024 Neontek, All rights reserved.</p></footer>
-          </html>
-           `;
+          <html lang="en">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>${pageTitle}</title>
+            </head>
+            <body>${htmlContent}</body>
+          </html>`;
+        try {
+          const fileURL = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
+          const fileResponse = await fetch(fileURL, {
+            headers: { Authorization: `token ${TOKEN}` },
+          });
 
-          try {
-            const fileURL = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}?ref=main`;
-            const fileResponse = await fetch(fileURL, {
-              headers: { Authorization: `token ${TOKEN}` },
-            });
-
-            let sha = null;
-            if (fileResponse.ok) {
-              const fileData = await fileResponse.json();
-              sha = fileData.sha;
-              message = `Existing file found with SHA: ${sha}`;
-            } else if (fileResponse.status === 404) {
-              message = "File not found. Proceeding to create it.";
-            } else {
-              const errorData = await fileResponse.json();
-              message = `Error fetching file: ${errorData.message}`;
-              return;
-            }
-
-            // Commit the file
-            const commitResponse = await fetch(fileURL, {
-              method: "PUT",
-              headers: {
-                Authorization: `token ${TOKEN}`,
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                message: "Committed the webpage.",
-                content: btoa(template),
-                sha: sha,
-              }),
-            });
-
-            if (commitResponse.ok) {
-              const result = await commitResponse.json();
-              message =
-                "Template committed successfully: " + result.content.html_url;
-            } else {
-              const errorData = await commitResponse.json();
-              message = `Error committing file:  ${errorData.message}`;
-            }
-          } catch (err) {
-            message = `Unexpected Error: ${err.message}`;
+          let sha = null;
+          if (fileResponse.ok) {
+            const fileData = await fileResponse.json();
+            sha = fileData.sha;
+            message = `Existing file found with SHA: ${sha}`;
+          } else if (fileResponse.status === 404) {
+            message = "File not found. Proceeding to create it.";
+          } else {
+            const errorData = await fileResponse.json();
+            message = `Error fetching file: ${errorData.message}`;
+            alert(message);
+            return;
           }
-        });
+
+          // Commit the file
+          const commitResponse = await fetch(fileURL, {
+            method: "PUT",
+            headers: {
+              Authorization: `token ${TOKEN}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              message: "Committed the webpage.",
+              content: btoa(template),
+              sha: sha || undefined,
+            }),
+          });
+
+          if (commitResponse.ok) {
+            const result = await commitResponse.json();
+            message = `Template committed successfully: ${result.content.html_url}`;
+          } else {
+            const errorData = await commitResponse.json();
+            message = `Error committing file: ${errorData.message}`;
+          }
+
+          alert(message);
+        } catch (err) {
+          alert(`Unexpected Error: ${err.message}`);
+        }
+      });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
