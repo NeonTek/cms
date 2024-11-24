@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Page</title>
+    <link rel="stylesheet" href="../../assets/css/all.min.css" />
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="content_grp">
+      <h2>Edit Page</h2>
+    </div>
+    <div class="editor">
+      <div class="editor_btns content_grp sticky-top">
+        <button
+          type="button"
+          id="btnPreviewHTML"
+          class="btn btn-outline-primary"
+        >
+          Preview Markup
+        </button>
+
+        <a
+          name=""
+          id="btnSave"
+          class="btn btn-outline-primary"
+          href="#"
+          role="button"
+          >Save</a
+        >
+
+        <button type="button" id="btnCommit" class="btn btn-outline-primary">
+          Commit Changes
+        </button>
+      </div>
+      <div class="editor-container" id="editor"></div>
+    </div>
+
+    <div class="output content_grp" id="markupOutputContainer">
+      <div class="content_grp sticky-top" style="box-shadow: none">
+        <h3 class="text-align-center">Generated Markup</h3>
+      </div>
+
+      <div id="markupOutput"></div>
+    </div>
+
+    <div class="data_modal">
+      <button
+        type="button"
+        class="close btn btn-primary"
+        id="modalCloseBtn"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <input
+        type="text"
+        name="usernameInput"
+        id="inputUsername"
+        placeholder="Your Github Username"
+      />
+      <input
+        type="text"
+        name="path"
+        id="inputPath"
+        placeholder="Filepath eg https://api.github..."
+      />
+      <input
+        type="text"
+        name="reponame"
+        id="inputRepoName"
+        placeholder="Repository name"
+      />
+      <input
+        type="text"
+        name="githubtoken"
+        id="inputPAT"
+        placeholder="Github PAT"
+      />
+      <input type="submit" id="btnCommit2" value="Commit Now" />
+
+      <div class="message" id="message"></div>
+    </div>
+
+    <script type="module">
+      const quill = new Quill("#editor", {
+        modules: {
+          toolbar: [
+            [{ font: [] }],
+            [{ size: [] }],
+            [{ header: [1, 2, false] }],
+            ["bold", "italic", "underline", "strike"],
+            ["blockquote"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            // TEXT ALIGNMENT
+            [
+              { align: "" },
+              { align: "center" },
+              { align: "right" },
+              { align: "justify" },
+            ],
+
+            // COLORS
+            [{ color: [] }, { background: [] }],
+
+            // INDENTATIONS
+            [{ indent: "-1" }, { indent: "+1" }],
+
+            // LINKS AND MEDIA
+            ["link", "image", "video", "code-block"],
+            // CLEAR FOMMATING
+            ["clean"],
+          ],
+        },
+        placeholder: "Start writing your page content...",
+        theme: "snow",
+      });
+
+      const markupPreview = document.getElementById("markupOutput");
+      const saveButton = document.getElementById("btnSave");
+      const previewButton = document.getElementById("btnPreviewHTML");
+
+      previewButton.addEventListener("click", () => {
+        const htmlContent = quill.root.innerHTML;
+        markupPreview.innerHTML = htmlContent;
+      });
+
+      // DATA MODAL
+      const dataModal = document.querySelector(".data_modal");
+      const usernameInp = document.getElementById("inputUsername");
+      const repoInp = document.getElementById("inputRepoName");
+      const pathInp = document.getElementById("inputPath");
+      const tokenInp = document.getElementById("inputPAT");
+      let message = document.getElementById("message").innerHTML;
+
+      // Token: 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
+
+      // HANDLER FOR COMMIT BUTTON CLICK
+
+      document
+        .getElementById("modalCloseBtn")
+        .addEventListener("click", () => (dataModal.style.display = "none"));
+
+      document.getElementById("btnCommit").addEventListener("click", () => {
+        dataModal.style.display = "flex";
+      });
+
+      document
+        .getElementById("btnCommit2")
+        .addEventListener("click", async () => {
+          // GITHUB API CONSTANTS
+          const GITHUB_USERNAME = usernameInp.value;
+          const REPO_NAME = repoInp.value;
+          const FILE_PATH = pathInp.value;
+          const TOKEN = tokenInp.value;
+
+          const htmlContent = quill.root.innerHTML;
+          let pageTitle = "New Page";
+          const template = `
+          <!DOCTYPE html>
+              <html lang="en">
+                <head>
+                  <meta charset="UTF-8" />
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                  <title>${pageTitle}</title>
+                </head>
+                <body>${htmlContent}</body>
+                <footer><p>&copy; 2024 Neontek, All rights reserved.</p></footer>
+          </html>
+           `;
+
+          try {
+            const fileURL = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}?ref=main`;
+            const fileResponse = await fetch(fileURL, {
+              headers: { Authorization: `token ${TOKEN}` },
+            });
+
+            let sha = null;
+            if (fileResponse.ok) {
+              const fileData = await fileResponse.json();
+              sha = fileData.sha;
+              message = `Existing file found with SHA: ${sha}`;
+            } else if (fileResponse.status === 404) {
+              message = "File not found. Proceeding to create it.";
+            } else {
+              const errorData = await fileResponse.json();
+              message = `Error fetching file: ${errorData.message}`;
+              return;
+            }
+
+            // Commit the file
+            const commitResponse = await fetch(fileURL, {
+              method: "PUT",
+              headers: {
+                Authorization: `token ${TOKEN}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                message: "Committed the webpage.",
+                content: btoa(template),
+                sha: sha,
+              }),
+            });
+
+            if (commitResponse.ok) {
+              const result = await commitResponse.json();
+              message =
+                "Template committed successfully: " + result.content.html_url;
+            } else {
+              const errorData = await commitResponse.json();
+              message = `Error committing file:  ${errorData.message}`;
+            }
+          } catch (err) {
+            message = `Unexpected Error: ${err.message}`;
+          }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script src="../../assets/js/all.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/bootstrap.js"></script>
+  </body>
+</html>

@@ -1,3 +1,15 @@
+const posts = document.querySelectorAll(".post");
+
+// post.addEventListener("click", () => {
+//   navigateToEditPage();
+// });
+
+posts.forEach((post) => {
+  post.addEventListener("click", () => {
+    navigateToEditPage();
+  });
+});
+
 // TOGGLE SECTIONS
 
 document.addEventListener("DOMContentLoaded", (e) => {

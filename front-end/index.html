@@ -225,7 +225,12 @@
           <!-- LIST OF POSTS -->
           <div class="row">
             <div class="posts_list" id="post_list">
-              <article class="post col-md-4" id="post" style="display: none">
+              <a
+                href="./pages/edit-page/"
+                class="post col-md-4"
+                id="post"
+                style="display: none"
+              >
                 <div class="post_image_holder">
                   <img
                     id="post-image"
@@ -253,7 +258,7 @@
                     <i class="fa-solid fa-info"></i>
                   </div>
                 </div>
-              </article>
+              </a>
             </div>
           </div>
         </section>
@@ -297,7 +302,41 @@
         </section>
         <!-- Pages -->
         <section class="section pages" id="pages">
-          <h2>Pages</h2>
+          <div class="content_grp">
+            <h2>Pages</h2>
+          </div>
+
+          <div class="pages_container">
+            <article class="post col-md-4" id="post" style="display: none">
+              <div class="post_image_holder">
+                <img
+                  id="post-image"
+                  src="./assets/images/img-holder.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="post_summery">
+                <p id="post-summery"></p>
+              </div>
+              <div class="post_meta">
+                <div class="icon_box">
+                  <i class="fa-solid fa-comment"></i>
+                </div>
+
+                <div class="icon_box">
+                  <i class="fa-solid fa-cog"></i>
+                </div>
+
+                <div class="icon_box">
+                  <i class="fa-solid fa-eye"></i>
+                </div>
+
+                <div class="icon_box">
+                  <i class="fa-solid fa-info"></i>
+                </div>
+              </div>
+            </article>
+          </div>
         </section>
         <!-- Users -->
         <section class="section users" id="users">
