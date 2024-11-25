@@ -78,6 +78,12 @@
         id="inputPAT"
         placeholder="Github PAT"
       />
+      <input
+        type="text"
+        name="pagetitle"
+        id="inputPageTitle"
+        placeholder="Page Title"
+      />
       <input type="submit" id="btnCommit2" value="Commit Now" />
 
       <div class="message" id="message"></div>
@@ -117,6 +123,7 @@
       const repoInp = document.getElementById("inputRepoName");
       const pathInp = document.getElementById("inputPath");
       const tokenInp = document.getElementById("inputPAT");
+      const pageTitleInp = document.getElementById("inputPageTitle");
       const closeModalButton = document.getElementById("modalCloseBtn");
       const commitModalButton = document.getElementById("btnCommit");
       const commitActionButton = document.getElementById("btnCommit2");
@@ -144,24 +151,85 @@
         const REPO_NAME = repoInp.value.trim();
         const FILE_PATH = pathInp.value.trim();
         const TOKEN = tokenInp.value.trim();
+        const pageTitle = pageTitleInp.value.trim();
 
-        if (!GITHUB_USERNAME || !REPO_NAME || !FILE_PATH || !TOKEN) {
+        if (
+          !GITHUB_USERNAME ||
+          !REPO_NAME ||
+          !FILE_PATH ||
+          !TOKEN ||
+          !pageTitle
+        ) {
           alert("All fields must be filled!");
           return;
         }
 
         const htmlContent = quill.root.innerHTML;
-        const pageTitle = "New Page";
         const template = `
-          <!DOCTYPE html>
-          <html lang="en">
-            <head>
-              <meta charset="UTF-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <title>${pageTitle}</title>
-            </head>
-            <body>${htmlContent}</body>
-          </html>`;
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="NeonTek, ai, programming, tech, software, websites">
+  <meta name="description" content="">
+  
+  <title>${pageTitle} - NeonTek</title>
+  <link rel="icon" href="../../../img/New_Logo.png" type="image/png">
+  <link rel="canonical" href="https://www.neontek.co.ke/">
+  
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="con">
+    <header class="header" id="header">
+      <div class="container">
+        <h1 class="neon">Top 5 Misconceptions About AI and Machine Learning, Debunked</h1>
+      </div>
+    </header>
+    
+    <nav class="main-nav-outer" id="test">
+      <div class="container">
+        <ul class="main-nav">
+          <li><a href="#header">Home</a></li>
+          <li><a href="#service">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://neontek.co.ke/releases/">App Releases</a></li>
+          <li><a href="https://neontek.co.ke/techhub/">Coding Hub</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <section class="main-section blog_content"></section>
+    <hr>
+    <section>
+      <div class="container_blog">
+        <div>${htmlContent}</div>
+        <div><h2>Up Next</h2></div>
+        <a href="../../" class="readmore">Read More Blogs</a>
+      </div>
+    </section>
+    
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-logo">
+          <a href="#"><img src="../../../img/New_Logo.png" alt="NeonTek Logo"></a>
+        </div>
+        <span class="copyright">
+          © 2024 | <a href="http://bootstraptaste.com/">Bootstrap Themes</a> by BootstrapTaste, modified by NeonTek
+        </span>
+        <div class="text-center">
+          <a href="terms and conditions">Terms and Conditions</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
+
+         `;
         try {
           const fileURL = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
           const fileResponse = await fetch(fileURL, {
@@ -182,6 +250,16 @@
             return;
           }
 
+          function utf8ToBase64(str) {
+            return btoa(
+              encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p1) =>
+                String.fromCharCode("0x" + p1)
+              )
+            );
+          }
+
+          const base64Encoded = utf8ToBase64(template);
+
           // Commit the file
           const commitResponse = await fetch(fileURL, {
             method: "PUT",
@@ -191,7 +269,7 @@
             },
             body: JSON.stringify({
               message: "Committed the webpage.",
-              content: btoa(template),
+              content: base64Encoded, //btoa(template),
               sha: sha || undefined,
             }),
           });
