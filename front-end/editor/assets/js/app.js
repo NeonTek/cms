@@ -4,19 +4,24 @@ let dropdownIsOpen = false;
 // Handle dropdown menues
 if (dropdowns.length) {
   dropdowns.forEach((dropdown) => {
-    dropdown.addEventListener("mouseover", (event) => {
-      let target = document.querySelector(`#${event.target.dataset.dropdown}`);
+    if (dropdownIsOpen) {
+      dropdown.addEventListener("mouseleave", (event) => {
+        let target = document.querySelector(
+          `#${event.target.dataset.dropdown}`
+        );
 
-      if (target) {
-        if (target.classList.contains("show")) {
-          target.classList.remove("show");
-          dropdownIsOpen = false;
-        } else {
-          target.classList.add("show");
-          dropdownIsOpen = true;
-        }
-      }
-    });
+        target.classList.remove("show");
+        dropdownIsOpen = false;
+      });
+    } else {
+      dropdown.addEventListener("mouseover", (event) => {
+        let target = document.querySelector(
+          `#${event.target.dataset.dropdown}`
+        );
+        target.classList.add("show");
+        dropdownIsOpen = true;
+      });
+    }
   });
 }
 

@@ -88,8 +88,10 @@ blockManager.add("sidebar-block", {
 
 blockManager.add("image-block", {
   label: "Image",
-  content:
-    '<img src="https://via.placeholder.com/300x200" alt="Placeholder Image" style="max-width: 100%; height: auto;">',
+  content: {
+    type: "image",
+    style: { width: "100%" },
+  },
   category: "Media",
 });
 
