@@ -117,3 +117,20 @@ blockManager.add("card-block", {
   `,
   category: "Layout",
 });
+
+blockManager.add("footer-block-1", {
+  label: "Footer Minimal",
+  content: `
+  <footer style="text-align: center">
+    <p>Copyright &copy; 2024 Neontek, inc</p> <br/>
+    <p> All Rights Reserved</p>
+  </footer>
+  `,
+  category: "Layout",
+});
+
+// Access the GrapesJS Code
+var htmlCode = editor.getHtml();
+var cssCode = editor.getCss();
+
+console.log(cssCode);

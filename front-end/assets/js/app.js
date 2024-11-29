@@ -1,5 +1,8 @@
+import { trackActivity, displayRecentActivities } from "./activityTracker";
+
 const posts = document.querySelectorAll(".post");
 
+window.onload = displayRecentActivities();
 // post.addEventListener("click", () => {
 //   navigateToEditPage();
 // });
@@ -10,9 +13,17 @@ posts.forEach((post) => {
   });
 });
 
+document.querySelector(".btn-customise-site").addEventListener("click", () => {
+  console.log("clicked the button");
+  trackActivity("You clicked a button.");
+  displayRecentActivities();
+});
+
 // TOGGLE SECTIONS
 
 document.addEventListener("DOMContentLoaded", (e) => {
+  trackActivity("Loaded Content.");
+  displayRecentActivities();
   // Get the navlinks
   const links = document.querySelectorAll(".link");
 
@@ -75,4 +86,18 @@ document.addEventListener("DOMContentLoaded", (e) => {
       sidebar.classList.remove("active");
     }
   });
+});
+
+// Handle Modals
+const commentsModal = document.getElementById("comment-modal");
+const commentsToggler = document
+  .querySelectorAll(".toggle-comment")
+  .forEach((button) => {
+    button.addEventListener("click", () => {
+      commentsModal.classList.add("show-modal");
+    });
+  });
+
+window.addEventListener("click", () => {
+  commentsModal.classList.remove("show-modal");
 });

@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neontek Blog Editor</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <meta
+      name="description"
+      content="Create websites with an easy to use content management system."
+    />
+    <title>FlexBoxes - Website Creator on the Go</title>
     <link
       rel="shortcut icon"
       href="./assets/images/Flexboxes-bg-white.png"
@@ -150,23 +155,28 @@
 
               <div class="get-started">
                 <h3>Get Started</h3>
-                <button class="btn btn-warning">Customise your Site</button>
+                <button class="btn btn-warning btn-customise-site">
+                  Customize your Site
+                </button>
               </div>
             </div>
             <div class="col-md-4">
               <h4>Next Steps</h4>
               <ul class="list-unstyled">
-                <li><a href="Link 1">Write a blog post</a></li>
-                <li><a href="Link 2">Create an about page</a></li>
-                <li><a href="Link 3">View your site</a></li>
+                <li><a href="./pages/edit-page/">Write a blog post</a></li>
+                <li><a href="./pages/edit-page/">Create an about page</a></li>
+                <li><a href="#">View your site</a></li>
+                <li>
+                  <a href="./editor/">Create your page using the editor</a>
+                </li>
               </ul>
             </div>
             <div class="col-md-4">
               <h4>More Actions</h4>
               <ul class="list-unstyled">
-                <li><a href="Link 1">Manage widgets and menus</a></li>
-                <li><a href="Link 2">Turn comments on or off</a></li>
-                <li><a href="Link 3">Learn more about getting started</a></li>
+                <li><a href="/">Manage widgets and menus</a></li>
+                <li><a href="/">Turn comments on or off</a></li>
+                <li><a href="/">Learn more about getting started</a></li>
               </ul>
             </div>
           </div>
@@ -175,29 +185,24 @@
               <div class="row">
                 <div class="content_grp bg-body-secondary">
                   <h4>At a Glance</h4>
-                  <p>Posts: <span>{{1 + 1}}</span></p>
-                  <p>Comments: <span>{{2 + 2}}</span></p>
-                  <p>Pages: <span>{{7}}</span></p>
+                  <p>Posts: <span>2</span></p>
+                  <p>Comments: <span>2</span></p>
+                  <p>Pages: <span>2</span></p>
                 </div>
               </div>
               <div class="row">
                 <div class="content_grp bg-body-secondary">
-                  <h4>At a Glance</h4>
-                  <p>Posts: <span>{{1 + 1}}</span></p>
-                  <p>Comments: <span>{{2 + 2}}</span></p>
-                  <p>Pages: <span>{{7}}</span></p>
+                  <h4>Explore More</h4>
+                  <p>
+                    Visit <a href="https://www.neontek.co.ke">Neontek's</a> page
+                  </p>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="content_grp bg-body-secondary">
-                <h4>Recents</h4>
-                <div class="recents_list" id="recents">
-                  <p>C:///users/username/documents/project1.csproj</p>
-                  <p>C:///users/username/documents/project1.csproj</p>
-                  <p>C:///users/username/documents/project1.csproj</p>
-                  <p>C:///users/username/documents/project1.csproj</p>
-                </div>
+                <h4>Recent Activities</h4>
+                <div class="recents_list" id="recents"></div>
               </div>
             </div>
           </div>
@@ -233,12 +238,7 @@
           <!-- LIST OF POSTS -->
           <div class="row">
             <div class="posts_list" id="post_list">
-              <a
-                href="./pages/edit-page/"
-                class="post col-md-4"
-                id="post"
-                style="display: none"
-              >
+              <article class="post col-md-4" id="post" style="display: none">
                 <div class="post_image_holder">
                   <img
                     id="post-image"
@@ -250,7 +250,7 @@
                   <p id="post-summery"></p>
                 </div>
                 <div class="post_meta">
-                  <div class="icon_box">
+                  <div class="icon_box toggle-comment" id="comment-toggle">
                     <i class="fa-solid fa-comment"></i>
                   </div>
 
@@ -266,9 +266,45 @@
                     <i class="fa-solid fa-info"></i>
                   </div>
                 </div>
-              </a>
+              </article>
             </div>
           </div>
+
+          <!-- COMMENTS MODAL -->
+          <div
+            class="modal_comments content_grp"
+            id="comment-modal"
+            style="gap: 50%"
+          >
+            <div class="content_grp">
+              <h2 style="display: inline-block">Comments</h2>
+              <button
+                class="btn btn-primary close_btn"
+                id="btn-close-modal-comments"
+              >
+                <i class="fa fa-close" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="comments_container">
+              <article class="comment">
+                <div class="profile_pic">
+                  <img
+                    src="./assets/images/Flexboxes-bg-white.png"
+                    alt="Profile Picture"
+                  />
+                </div>
+                <div class="comment_meta">
+                  <h3 class="commenter">Flexbox Neontek</h3>
+                  <p class="comment_text">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Nesciunt quas atque natus rem quibusdam asperiores illum
+                    aspernatur dolores temporibus quae.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <!-- COMMENTS MODAL END -->
         </section>
         <!-- Media -->
         <section class="section media" id="media">
@@ -402,7 +438,8 @@
           document.querySelector(".sidebar").classList.toggle("active");
         });
     </script>
-    <script src="./assets/js/app.js"></script>
+    <script type="module" src="./assets/js/app.js"></script>
+    <script type="module" src="./assets/js/activityTracker.js"></script>
     <script src="./assets/js/posts.js"></script>
     <script src="./assets/js/mediaHandler.js"></script>
   </body>

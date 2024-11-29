@@ -59,16 +59,19 @@ body {
   margin: 0.5rem 0;
 }
 
+.sidebar_item:hover {
+  padding-left: 1rem;
+}
 .sidebar_link {
   display: block;
   padding: 0.75rem 1rem;
   color: #333;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .sidebar_link:hover {
-  background-color: #e9ecef;
+  background-color: #b5bcc4;
   color: #007bff;
 }
 
@@ -247,4 +250,76 @@ body {
   }
 
   z-index: 57843;
+}
+
+/* COMMENTS MODAL */
+.modal_comments {
+  position: fixed;
+  width: 80vw;
+  height: 80vh;
+  padding: 1.2rem;
+  top: 10vh;
+  left: 10vw;
+  z-index: 10769352;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  display: none;
+}
+
+.profile_pic {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-content: center;
+  border: 4px solid #007bff;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.comments_container {
+  overflow: auto;
+}
+
+.comment {
+  display: flex;
+  gap: 1rem;
+}
+
+.comment_meta {
+  width: 90%;
+}
+
+.show-modal {
+  display: block;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #333;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #555 #f0f0f0;
 }
