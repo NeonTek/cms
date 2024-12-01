@@ -48,22 +48,42 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          class="collapse navbar-collapse bg-white"
+          id="navbarSupportedContent"
+        >
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Downloads</a>
+              <a
+                class="nav-link"
+                target="_blank"
+                href="https://www.neontek.co.ke/realeases/"
+                >Downloads</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Tech Hub</a>
+              <a
+                class="nav-link"
+                target="_blank"
+                href="https://www.neontek.co.ke/tech-hub/"
+                >Tech Hub</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Learning</a>
+              <a
+                class="nav-link"
+                target="_blank"
+                href="https://www.neontek.co.ke/learning/"
+                >Learning</a
+              >
             </li>
             <li class="nav-item btn-primary">
-              <a class="nav-link btn-primary" href="./editor/">Editor</a>
+              <a class="nav-link btn-primary" target="_blank" href="./editor/"
+                >Editor</a
+              >
             </li>
           </ul>
           <form class="d-flex" role="search">
@@ -89,7 +109,7 @@
           <ul class="sidebar_list list-unstyled">
             <li class="sidebar_item">
               <a
-                href="#"
+                href="#home"
                 data-section="home"
                 class="sidebar_link link text-decoration-none"
                 >Home</a
@@ -98,7 +118,7 @@
 
             <li class="sidebar_item">
               <a
-                href="#"
+                href="#posts"
                 data-section="posts"
                 class="sidebar_link link text-decoration-none"
                 >Posts</a
@@ -107,7 +127,7 @@
 
             <li class="sidebar_item">
               <a
-                href="#"
+                href="#media"
                 data-section="media"
                 class="sidebar_link link text-decoration-none"
                 >Media</a
@@ -116,16 +136,16 @@
 
             <li class="sidebar_item">
               <a
-                href="#"
+                href="#pages"
                 data-section="pages"
                 class="sidebar_link link text-decoration-none"
                 >Pages</a
               >
             </li>
 
-            <li class="sidebar_item">
+            <!-- <li class="sidebar_item">
               <a
-                href="#"
+                href="#users"
                 data-section="users"
                 class="sidebar_link link text-decoration-none"
                 >Users</a
@@ -134,12 +154,12 @@
 
             <li class="sidebar_item">
               <a
-                href="#"
+                href="#settings"
                 data-section="settings"
                 class="sidebar_link link text-decoration-none"
                 >Settings</a
               >
-            </li>
+            </li> -->
           </ul>
         </aside>
       </div>
@@ -149,13 +169,16 @@
           <div class="content_grp row bg-body-secondary">
             <div class="col-md-4">
               <div class="sect_header">
-                <h4>Welcome to Flex Boxes</h4>
+                <h4>Welcome to Flex Box</h4>
                 <p>We've assembled some links to get you started.</p>
               </div>
 
               <div class="get-started">
                 <h3>Get Started</h3>
-                <button class="btn btn-warning btn-customise-site">
+                <button
+                  class="btn btn-warning btn-customise-site"
+                  onclick="location.href = './editor/'"
+                >
                   Customize your Site
                 </button>
               </div>
@@ -383,19 +406,24 @@
           </div>
         </section>
         <!-- Users -->
-        <section class="section users" id="users">
+        <!-- <section class="section users" id="users">
           <h2>Users</h2>
         </section>
-        <!-- Settings -->
-        <section class="section settings" id="settings">
+        Settings -->
+        <!-- <section class="section settings" id="settings">
           <h2>Settings</h2>
-        </section>
+        </section>  -->
 
         <!--  -->
       </div>
     </div>
 
     <div class="swipe-area"></div>
+
+    <div class="mobile_warning">
+      This page is not available for mobile phones, <br />
+      <a href="#">Learn More.</a>
+    </div>
 
     <!-- FIREBASE JS -->
     <script type="module">

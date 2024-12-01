@@ -7,18 +7,6 @@ window.onload = displayRecentActivities();
 //   navigateToEditPage();
 // });
 
-posts.forEach((post) => {
-  post.addEventListener("click", () => {
-    navigateToEditPage();
-  });
-});
-
-document.querySelector(".btn-customise-site").addEventListener("click", () => {
-  console.log("clicked the button");
-  trackActivity("You clicked a button.");
-  displayRecentActivities();
-});
-
 // TOGGLE SECTIONS
 
 document.addEventListener("DOMContentLoaded", (e) => {
@@ -33,7 +21,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
       e.preventDefault();
 
       const targetSectionId = e.target.getAttribute("data-section");
-      console.log(`Target Section: ${targetSectionId}`);
 
       document.querySelectorAll(".section").forEach((section) => {
         section.classList.remove("active_sect");
@@ -98,6 +85,6 @@ const commentsToggler = document
     });
   });
 
-window.addEventListener("click", () => {
+document.addEventListener("click", () => {
   commentsModal.classList.remove("show-modal");
 });
